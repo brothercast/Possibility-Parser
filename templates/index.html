@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Possibility Parser</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/app.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>SSPEC Possibility Parser</h1>
+    <form id="possibility-form" onsubmit="submitForm(event)">
+        <div class="form-group">
+            <label for="possibility">Enter a possibility:</label>
+            <input type="text" class="form-control" id="possibility" name="possibility" required>
+        </div>
+        <button type="submit" id="parse-btn">Parse</button>
+    </form>
+
+    <div id="results" class="results text-center">
+        <div id="goal-slot" class="slot">
+            <p>Goal</p>
+        </div>
+        <div id="domain-slot" class="slot">
+            <p>Domain</p>
+        </div>
+        <div id="conditions-slot" class="slot">
+            <p>Conditions</p>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#possibility-form").on("submit", function (event) {
+            event.preventDefault();
+            const possibility = $("#possibility").val();
+            if (!possibility) {
+                return;
+            }
+
+            $.ajax({
+                url: "/parse",  // Change this line
+                method: "POST",
+                data: {possibility: possibility},
+                success: function (response) {
+                    // ...
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
